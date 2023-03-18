@@ -4,10 +4,10 @@
 
   <groupId>org.ecy</groupId>
   <artifactId>reactive-micro</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <packaging>pom</packaging>
-
+  <version>1.0.0</version>
   <name>reactive-micro</name>
+
+  <packaging>pom</packaging>
 
   <modules>
     <module>config-service</module>
