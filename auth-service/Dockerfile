@@ -5,6 +5,7 @@ COPY pom.xml .
 RUN mvn clean package
 
 FROM openjdk:17
-COPY --from=build /app/targer/auth-service-1.0.0.jar /app/auth-service.jar
+COPY --from=build /app/target/auth-service-1.0.0.jar /app/auth-service.jar
+EXPOSE 8079
 ENTRYPOINT ["java", "-jar", "/app/auth-service.jar"]
 

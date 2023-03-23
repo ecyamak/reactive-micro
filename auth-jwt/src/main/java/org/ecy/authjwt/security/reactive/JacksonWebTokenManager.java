@@ -13,18 +13,11 @@ import java.util.Map;
 
 public class JacksonWebTokenManager implements TokenManager {
 
-    @Value("${token.secret}")
-    private String secret;
+    private String secret = "ThisIsSecretForJWTHS512SignatureAlgorithmThatMUSTHave64ByteLengt";
 
-    @Value("${token.expiration}")
-    private Long expiration;
+    private Long expiration = 100000L;
 
-    private Key key;
-
-    @PostConstruct
-    public void init() {
-        key = Keys.hmacShaKeyFor(secret.getBytes());
-    }
+    private Key key = Keys.hmacShaKeyFor(secret.getBytes());
 
     @Override
     public Mono<String> generateToken(Credentials credentials) {
