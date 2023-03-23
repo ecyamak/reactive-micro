@@ -12,11 +12,11 @@
   <modules>
     <module>config-service</module>
     <module>discovery-service</module>
+    <module>auth-jwt</module>
     <module>auth-service</module>
     <module>first-service</module>
     <module>second-service</module>
     <module>gateway-service</module>
-    <module>auth-jwt</module>
   </modules>
 
   <properties>
