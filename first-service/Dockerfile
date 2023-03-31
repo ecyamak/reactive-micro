@@ -5,6 +5,6 @@ COPY pom.xml .
 RUN mvn clean package
 
 FROM openjdk:17
-COPY --from=build /app/targer/first-service-1.0.0.jar /app/first-service.jar
+COPY --from=build /app/target/first-service-1.0.0.jar /app/first-service.jar
 EXPOSE 8081
 ENTRYPOINT ["java", "-jar", "/app/first-service.jar"]
