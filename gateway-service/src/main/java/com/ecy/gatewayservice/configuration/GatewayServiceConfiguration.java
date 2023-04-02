@@ -41,7 +41,7 @@ public class GatewayServiceConfiguration {
                 .securityContextRepository(securityContextRepository())
                 .formLogin().disable()
                 .authorizeExchange()
-                .pathMatchers("/login", "/signup", "/all").permitAll()
+                .pathMatchers("/first/**", "/login", "/signup", "/all").permitAll()
                 .anyExchange().authenticated().and()
                 .build();
     }
