@@ -23,13 +23,13 @@ public class GatewayServiceConfiguration {
         return builder.routes()
                 .route(r -> r
                         .path("/login", "/signup", "/info", "/all")
-                        .uri("lb://authservice"))
+                        .uri("lb://auth-service"))
                 .route(r -> r
                         .path("/first/**")
-                        .uri("lb://firstservice"))
+                        .uri("lb://first-service"))
                 .route(r -> r
                         .path("/second/**")
-                        .uri("lb://secondservice"))
+                        .uri("lb://second-service"))
                 .build();
     }
 
