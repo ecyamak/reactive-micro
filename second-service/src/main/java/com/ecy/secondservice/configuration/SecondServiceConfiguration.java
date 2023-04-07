@@ -2,6 +2,7 @@ package com.ecy.secondservice.configuration;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,17 +21,17 @@ import java.util.Map;
 @EnableReactiveMongoRepositories(basePackages = "com.ecy.secondservice.repository")
 public class SecondServiceConfiguration {
 
-    //@Value("${spring.kafka.bootstrap-servers}")
-    //private String kafkaServer;
+    @Value("${spring.kafka.bootstrap-servers:localhost:29092}")
+    private String kafkaServer;
 
-    //@Value("${spring.kafka.consumer.group-id}")
-    //private String kafkaGroup;
+    @Value("${spring.kafka.consumer.group-id:consumer-group}")
+    private String kafkaGroup;
 
     @Bean
     public ConsumerFactory<String, String> consumerFactory() {
         Map<String, Object> configs = new HashMap<>();
-        configs.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:29092");
-        configs.put(ConsumerConfig.GROUP_ID_CONFIG, "consumer-group");
+        configs.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaServer);
+        configs.put(ConsumerConfig.GROUP_ID_CONFIG, kafkaGroup);
         configs.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         configs.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         return new DefaultKafkaConsumerFactory<>(configs);

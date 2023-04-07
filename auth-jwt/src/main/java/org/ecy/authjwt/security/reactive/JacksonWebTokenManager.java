@@ -3,6 +3,8 @@ package org.ecy.authjwt.security.reactive;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Value;
 import reactor.core.publisher.Mono;
 
 import java.security.Key;
@@ -11,11 +13,18 @@ import java.util.Map;
 
 public class JacksonWebTokenManager implements TokenManager {
 
-    private String secret = "ThisIsSecretForJWTHS512SignatureAlgorithmThatMUSTHave64ByteLengt";
+    @Value("${token.secret:dELhDB9aYDrjYvVTQ5nejB3PahyTvssEmHLL3a2tHtw7qBkwJmSx2jqGCrDAfZ6S}")
+    private String secret;
 
-    private Long expiration = 100000L;
+    @Value("${token.expiration:100000}")
+    private Long expiration;
 
-    private Key key = Keys.hmacShaKeyFor(secret.getBytes());
+    private Key key;
+
+    @PostConstruct
+    public void init() {
+        key = Keys.hmacShaKeyFor(secret.getBytes());
+    }
 
     @Override
     public Mono<String> generateToken(Credentials credentials) {

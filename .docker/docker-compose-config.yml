@@ -1,0 +1,60 @@
+version: '3.7'
+name: reactive
+services:
+  config-service:
+    container_name: config-service
+    build:
+      context: config-service
+      dockerfile: Dockerfile
+    image: config-service
+    ports:
+      - 8888:8888
+    expose:
+      - 8888
+    networks:
+      - service-network
+    healthcheck:
+      test: "curl --fail --silent http://config-service:8888/actuator/health | grep UP || exit 1"
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+  discovery-service:
+    container_name: discovery-service
+    build:
+      context: discovery-service
+      dockerfile: Dockerfile
+    image: discovery-service
+    ports:
+      - 8761:8761
+    expose:
+      - 8761
+    networks:
+      - service-network
+    healthcheck:
+      test: "curl --fail --silent http://discovery-service:8761/actuator/health | grep UP || exit 1"
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+    depends_on:
+      config-service:
+        condition: service_healthy
+  gateway-service:
+    container_name: gateway-service
+    build:
+      context: gateway-service
+      dockerfile: Dockerfile
+    image: gateway-service
+    ports:
+      - 8080:8080
+    expose:
+      - 8080
+    networks:
+      - service-network
+    depends_on:
+      discovery-service:
+        condition: service_healthy
+networks:
+  service-network:
+    driver: bridge
