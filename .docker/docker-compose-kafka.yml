@@ -1,6 +1,8 @@
 version: '3.7'
+name: kafka
 services:
   zookeeper:
+    container_name: zookeeper
     image: confluentinc/cp-zookeeper:latest
     ports:
       - 2181:2181
@@ -8,6 +10,7 @@ services:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
   kafka:
+    container_name: kafka
     image: confluentinc/cp-kafka:latest
     ports:
       - 29092:29092

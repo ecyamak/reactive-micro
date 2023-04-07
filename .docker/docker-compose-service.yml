@@ -1,0 +1,42 @@
+version: '3.7'
+name: service
+services:
+  auth-service:
+    container_name: auth-service
+    build:
+      context: auth-service
+      dockerfile: Dockerfile
+    image: auth-service
+    ports:
+      - 8079:8079
+    expose:
+      - 8079
+    networks:
+      - service-network
+  first-service:
+    container_name: first-service
+    build:
+      context: first-service
+      dockerfile: Dockerfile
+    image: first-service
+    ports:
+      - 8081:8081
+    expose:
+      - 8081
+    networks:
+      - service-network
+  second-service:
+    container_name: second-service
+    build:
+      context: second-service
+      dockerfile: Dockerfile
+    image: second-service
+    ports:
+      - 8082:8082
+    expose:
+      - 8082
+    networks:
+      - service-network
+networks:
+  service-network:
+    driver: bridge
