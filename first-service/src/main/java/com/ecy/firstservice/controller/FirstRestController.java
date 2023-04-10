@@ -19,7 +19,7 @@ public class FirstRestController {
     private final WebClient.Builder webClientBuilder;
 
     @GetMapping
-    public Mono<String> info() {
+    public Mono<Object> info() {
         return Mono.just("This is first service.");
     }
 

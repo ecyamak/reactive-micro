@@ -1,6 +1,7 @@
 package com.ecy.authservice.service.impl;
 
 import com.ecy.authservice.entity.User;
+import com.ecy.authservice.exception.AuthorizationException;
 import com.ecy.authservice.repository.UserRepository;
 import com.ecy.authservice.service.UserService;
 import lombok.AllArgsConstructor;
@@ -45,7 +46,7 @@ public class UserServiceImpl implements UserService {
         return get(user)
                 .filter(u -> passwordEncoder.matches(user.getPassword(), u.getPassword()))
                 .map(u -> tokenManager.generateToken(u).block())
-                .switchIfEmpty(Mono.empty());
+                .switchIfEmpty(Mono.error(new AuthorizationException("401 Unauthorized")));
     }
 
     @Override

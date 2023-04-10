@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 @RestController
 @AllArgsConstructor
 public class AuthRestController {
@@ -16,8 +20,11 @@ public class AuthRestController {
     private UserService userService;
 
     @PostMapping("/login")
-    public Mono<String> login(@RequestBody User user) {
-        return userService.authenticate(user);
+    public Mono<Map<String, String>> login(@RequestBody User user) {
+        return userService.authenticate(user)
+                .filter(r -> !r.isEmpty())
+                .map(r -> Map.of("token", r))
+                .switchIfEmpty(Mono.empty());
     }
 
     @PostMapping("/signup")
@@ -31,15 +38,18 @@ public class AuthRestController {
         return userService.getAll();
     }
 
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/all")
     public Mono<Void> deleteAll() {
         return userService.deleteAll();
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/info")
-    public Mono<String> info() {
-        return Mono.just("This is auth service.");
+    @GetMapping("/resource")
+    public Map<String, Object> home() {
+        Map<String, Object> model = new HashMap<>();
+        model.put("id", UUID.randomUUID().toString());
+        model.put("content", "Hello World");
+        return model;
     }
 
 }
