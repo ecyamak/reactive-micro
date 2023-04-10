@@ -17,6 +17,7 @@
     <module>first-service</module>
     <module>second-service</module>
     <module>gateway-service</module>
+    <module>ng-client</module>
   </modules>
 
   <properties>
