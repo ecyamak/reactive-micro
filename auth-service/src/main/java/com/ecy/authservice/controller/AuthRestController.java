@@ -19,8 +19,8 @@ public class AuthRestController {
 
     private UserService userService;
 
-    @PostMapping("/login")
-    public Mono<Map<String, String>> login(@RequestBody User user) {
+    @PostMapping("/signin")
+    public Mono<Map<String, String>> signin(@RequestBody User user) {
         return userService.authenticate(user)
                 .filter(r -> !r.isEmpty())
                 .map(r -> Map.of("token", r))

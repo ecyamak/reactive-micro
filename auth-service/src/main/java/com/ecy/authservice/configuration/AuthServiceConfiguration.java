@@ -35,7 +35,7 @@ public class AuthServiceConfiguration {
                 .securityContextRepository(securityContextRepository())
                 .formLogin().disable()
                 .authorizeExchange()
-                .pathMatchers("/login", "/signup", "/all").permitAll()
+                .pathMatchers("/signin", "/signup", "/all").permitAll()
                 .anyExchange().authenticated().and()
                 .exceptionHandling()
                 .authenticationEntryPoint((exchange, exception) -> Mono.error(exception))

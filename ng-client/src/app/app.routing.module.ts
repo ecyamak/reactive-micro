@@ -5,8 +5,13 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'home',
+    redirectTo: 'signin',
   },
+  {
+    path: 'signin',
+    loadChildren: () => import('./domain/auth/module/auth.module').then(m => m.AuthModule)
+  },
+  /*
   {
     path: 'signup',
     data: {
@@ -14,13 +19,7 @@ const routes: Routes = [
     },
     loadChildren: () => import('./domain/auth/module/auth.module').then(m => m.AuthModule)
   },
-  {
-    path: 'login',
-    data: {
-      id: 'login'
-    },
-    loadChildren: () => import('./domain/auth/module/auth.module').then(m => m.AuthModule)
-  },
+   */
   {
     path: 'home',
     loadChildren: () => import('./domain/home/module/home.module').then(m => m.HomeModule)

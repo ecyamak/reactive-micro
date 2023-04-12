@@ -4,6 +4,8 @@ import { AppComponent } from './app.component';
 import {AppRoutingModule} from "./app.routing.module";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {HttpServiceInterceptor} from "./common/http/interceptor/http.service.interceptor";
+import {NavbarModule} from "./module/navbar/navbar.module";
+import {FooterModule} from "./module/footer/footer.module";
 
 @NgModule({
   declarations: [
@@ -12,7 +14,9 @@ import {HttpServiceInterceptor} from "./common/http/interceptor/http.service.int
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NavbarModule,
+    FooterModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: HttpServiceInterceptor, multi: true}

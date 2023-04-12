@@ -4,22 +4,22 @@ import {AbstractBaseService} from "../../../common/base/abstract.base.service";
 @Injectable()
 export class AuthService extends AbstractBaseService {
 
-  signup(credentials: any, callback: any) {
-    credentials.roles = ['ROLE_USER']
-    return this.httpService.post('/signup', credentials)
-      .subscribe(response => {
-        return callback && callback();
-      });
-  }
-
-  login(credentials: any, callback: any) {
-    return this.httpService.post('/login', credentials)
+  signin(credentials: any, callback: any) {
+    return this.httpService.post('/signin', credentials)
       .subscribe(response => {
         if (response['token']) {
           sessionStorage.setItem('token', response['token']);
         } else {
           sessionStorage.removeItem('token');
         }
+        return callback && callback();
+      });
+  }
+
+  signup(credentials: any, callback: any) {
+    credentials.roles = ['ROLE_USER']
+    return this.httpService.post('/signup', credentials)
+      .subscribe(response => {
         return callback && callback();
       });
   }
@@ -31,6 +31,5 @@ export class AuthService extends AbstractBaseService {
         return callback && callback();
       });
   }
-
 
 }
