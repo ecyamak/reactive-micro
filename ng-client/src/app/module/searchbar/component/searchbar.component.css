@@ -1,0 +1,10 @@
+input {
+  all: unset;
+  text-align: right;
+  margin-right: 10px;
+}
+
+::placeholder {
+  color: #fff;
+  opacity: 0.8;
+}

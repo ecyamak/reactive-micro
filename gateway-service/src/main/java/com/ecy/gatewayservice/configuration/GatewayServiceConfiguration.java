@@ -25,7 +25,7 @@ public class GatewayServiceConfiguration {
     public RouteLocator routes(RouteLocatorBuilder builder) {
         return builder.routes()
                 .route(r -> r
-                        .path("/login", "/signup", "/all", "/resource")
+                        .path("/signin", "/signup", "/all", "/resource")
                         .uri("lb://auth-service"))
                 .route(r -> r
                         .path("/first/**")
@@ -51,7 +51,7 @@ public class GatewayServiceConfiguration {
                 .securityContextRepository(securityContextRepository())
                 .formLogin().disable()
                 .authorizeExchange()
-                .pathMatchers("/login", "/signup", "/all").permitAll()
+                .pathMatchers("/signin", "/signup", "/all").permitAll()
                 .anyExchange().authenticated().and()
                 .build();
     }
