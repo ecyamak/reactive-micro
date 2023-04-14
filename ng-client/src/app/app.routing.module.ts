@@ -4,25 +4,19 @@ import {RouterModule, Routes} from "@angular/router";
 const routes: Routes = [
   {
     path: '',
-    pathMatch: 'full',
-    redirectTo: 'signin',
+    loadChildren: () => import('./domain/domain.module').then(m => m.DomainModule)
   },
   {
-    path: 'signin',
-    loadChildren: () => import('./domain/auth/module/auth.module').then(m => m.AuthModule)
+    path: 'login',
+    loadChildren: () => import('./domain/login/login.module').then(m => m.LoginModule)
   },
-  /*
   {
-    path: 'signup',
-    data: {
-      id: 'signup'
-    },
-    loadChildren: () => import('./domain/auth/module/auth.module').then(m => m.AuthModule)
+    path: 'page',
+    loadChildren: () => import('./module/common/common.module').then(m => m.CommonModule)
   },
-   */
   {
-    path: 'home',
-    loadChildren: () => import('./domain/home/module/home.module').then(m => m.HomeModule)
+    path: '**',
+    redirectTo: 'page'
   }
 ];
 
