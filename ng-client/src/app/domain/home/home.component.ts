@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'home',
-  templateUrl: './home.component.html'
+  template: '<profile/>'
 })
 export class HomeComponent implements OnInit {
 

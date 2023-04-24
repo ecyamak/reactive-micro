@@ -3,12 +3,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import {AppRoutingModule} from "./app.routing.module";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {HttpServiceInterceptor} from "./utils/http/http.service.interceptor";
+import {HttpServiceInterceptor} from "./common/interceptor/http.service.interceptor";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
   ],

@@ -12,7 +12,7 @@ const routes: Routes = [
   },
   {
     path: 'page',
-    loadChildren: () => import('./module/common/common.module').then(m => m.CommonModule)
+    loadChildren: () => import('./common/error/common.error.module').then(m => m.CommonErrorModule)
   },
   {
     path: '**',

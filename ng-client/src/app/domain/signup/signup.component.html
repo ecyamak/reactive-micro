@@ -1,13 +1,17 @@
-<div>
-  <form (submit)="submit()">
-    <input id="username"/>
-    <input id="password"/>
-    <input id="email"/>
-    <input id="birthdate"/>
-    <input id="university"/>
-    <input id="faculty"/>
-    <input id="department"/>
-    <input id="year"/>
-    <button type="submit">Submit</button>
-  </form>
-</div>
+<form [formGroup]="formGroup" (submit)="submit()">
+  <div class="p-card px-4 py-4 mb-4">
+    <p-steps [model]="steps" [readonly]="true" [activeIndex]="step"></p-steps>
+  </div>
+  <p-card styleClass="px-2">
+    <account-inform *ngIf="step === 0"/>
+    <institution-inform *ngIf="step === 1"/>
+    <personal-inform *ngIf="step === 2"/>
+    <address-inform *ngIf="step === 3"/>
+    <interest-inform *ngIf="step === 4"/>
+    <div [ngClass]="step === 0 ? 'flex justify-content-end flex-wrap card-container' : 'flex justify-content-between flex-wrap card-container'">
+      <p-button *ngIf="step !== 0" (onClick)="onPrevious()" icon="pi pi-chevron-left" styleClass="p-button-lg p-button-text pl-0"/>
+      <p-button *ngIf="step !== 4" (onClick)="onNext()" icon="pi pi-chevron-right" iconPos="right" styleClass="p-button-lg p-button-text pr-0"/>
+      <p-button *ngIf="step === 4" type="submit" icon="pi pi-check" iconPos="right" styleClass="p-button-lg p-button-text pr-0"/>
+    </div>
+  </p-card>
+</form>

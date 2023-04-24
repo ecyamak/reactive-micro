@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {AbstractBaseService} from "../../../utils/base/abstract.base.service";
+import {AbstractBaseService} from "../../../common/service/abstract.base.service";
 
 @Injectable()
 export class AuthService extends AbstractBaseService {
