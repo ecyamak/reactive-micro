@@ -1,4 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+/* primeng */
+@import "primeng/resources/themes/saga-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+@import "primeflex/primeflex.css";
+/* fonts */
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 /* W3.CSS 4.15 December 2020 by Jan Egil and Borge Refsnes */
 html{box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}
@@ -282,5 +288,8 @@ background: linear-gradient(to top, #4CAF50, #8bc34a) !important;
 .ecy-theme-blue {color:#fff !important; background-color:#3282B8 !important}
 .ecy-theme-light-blue {color:#000 !important; background-color:#BBE1FA !important}
 
-
 .ecy-white,.ecy-hover-white:hover{color:#00425A!important; background-color:#f6f5f7 !important}
+
+.ng-dirty.ng-invalid:enabled:focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 0, 0, 0.377);
+}
