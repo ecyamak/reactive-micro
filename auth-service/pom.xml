@@ -59,12 +59,21 @@
         </dependency>
         <!-- others -->
         <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
         <dependency>
             <groupId>com.ecy</groupId>
-            <artifactId>auth-jwt</artifactId>
+            <artifactId>authentication</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ecy</groupId>
+            <artifactId>notification</artifactId>
             <version>1.0.0</version>
         </dependency>
     </dependencies>

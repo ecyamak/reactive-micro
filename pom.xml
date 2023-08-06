@@ -2,7 +2,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.ecy</groupId>
+  <groupId>com.ecy</groupId>
   <artifactId>reactive-micro</artifactId>
   <version>1.0.0</version>
   <name>reactive-micro</name>
@@ -13,8 +13,10 @@
     <module>config-service</module>
     <module>discovery-service</module>
     <module>auth-jwt</module>
+    <module>common</module>
     <module>auth-service</module>
     <module>mail-service</module>
+    <module>sms-service</module>
     <module>first-service</module>
     <module>second-service</module>
     <module>gateway-service</module>
