@@ -54,7 +54,7 @@
         <!-- others -->
         <dependency>
             <groupId>com.ecy</groupId>
-            <artifactId>auth-jwt</artifactId>
+            <artifactId>authentication</artifactId>
             <version>1.0.0</version>
         </dependency>
     </dependencies>

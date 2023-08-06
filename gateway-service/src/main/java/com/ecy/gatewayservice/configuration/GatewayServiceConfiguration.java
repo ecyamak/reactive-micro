@@ -1,9 +1,9 @@
 package com.ecy.gatewayservice.configuration;
 
-import org.ecy.authjwt.security.reactive.AuthenticationManager;
-import org.ecy.authjwt.security.reactive.JacksonWebTokenManager;
-import org.ecy.authjwt.security.reactive.SecurityContextRepository;
-import org.ecy.authjwt.security.reactive.TokenManager;
+import com.ecy.authentication.reactive.jwt.AuthenticationManager;
+import com.ecy.authentication.reactive.jwt.JacksonWebTokenManager;
+import com.ecy.authentication.reactive.jwt.SecurityContextRepository;
+import com.ecy.authentication.reactive.jwt.TokenManager;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
