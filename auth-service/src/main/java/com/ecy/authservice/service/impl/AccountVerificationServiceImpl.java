@@ -4,6 +4,9 @@ import com.ecy.authservice.entity.Account;
 import com.ecy.authservice.entity.AccountVerification;
 import com.ecy.authservice.repository.AccountVerificationRepository;
 import com.ecy.authservice.service.AccountVerificationService;
+import com.ecy.authservice.service.KafkaService;
+import com.ecy.notification.NotificationFactory;
+import com.ecy.notification.NotificationType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +27,7 @@ import java.util.UUID;
 public class AccountVerificationServiceImpl implements AccountVerificationService {
 
     private final AccountVerificationRepository accountVerificationRepository;
+    private final KafkaService kafkaService;
 
     @Override
     public Mono<AccountVerification> create(Account account) {
@@ -32,7 +36,13 @@ public class AccountVerificationServiceImpl implements AccountVerificationServic
                 .verificationCode(UUID.randomUUID().toString())
                 .createDate(LocalDateTime.now())
                 .expireDate(LocalDateTime.now().plusMinutes(15))
-                .build());
+                .build())
+                .doOnNext(accountVerification -> kafkaService.sendNotification(
+                        NotificationFactory.get(NotificationType.MAIL,
+                                accountVerification.getEmail(),
+                                "Verification Code",
+                                "http://localhost:8079/verify?verificationCode=" + accountVerification.getVerificationCode()))
+                );
     }
 
     @Override

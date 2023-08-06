@@ -1,10 +1,9 @@
 package com.ecy.authservice.configuration;
 
-import lombok.AllArgsConstructor;
-import org.ecy.authjwt.security.reactive.AuthenticationManager;
-import org.ecy.authjwt.security.reactive.JacksonWebTokenManager;
-import org.ecy.authjwt.security.reactive.SecurityContextRepository;
-import org.ecy.authjwt.security.reactive.TokenManager;
+import com.ecy.authentication.reactive.jwt.AuthenticationManager;
+import com.ecy.authentication.reactive.jwt.JacksonWebTokenManager;
+import com.ecy.authentication.reactive.jwt.SecurityContextRepository;
+import com.ecy.authentication.reactive.jwt.TokenManager;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +19,6 @@ import org.springframework.security.web.server.context.ServerSecurityContextRepo
 import reactor.core.publisher.Mono;
 
 @Configuration
-@AllArgsConstructor
 @EnableDiscoveryClient
 @EnableWebFluxSecurity
 @EnableReactiveMethodSecurity

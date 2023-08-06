@@ -1,11 +1,11 @@
 package com.ecy.authservice.service.impl;
 
+import com.ecy.authentication.reactive.jwt.TokenManager;
 import com.ecy.authservice.entity.User;
 import com.ecy.authservice.exception.AuthorizationException;
 import com.ecy.authservice.repository.UserRepository;
 import com.ecy.authservice.service.UserService;
 import lombok.AllArgsConstructor;
-import org.ecy.authjwt.security.reactive.TokenManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;

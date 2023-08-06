@@ -1,7 +1,7 @@
 package com.ecy.mailservice.controller;
 
-import com.ecy.mailservice.entity.Mail;
 import com.ecy.mailservice.service.MailService;
+import com.ecy.notification.type.Mail;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +24,7 @@ public class MailRestController {
 
     @PostMapping("/send")
     public Mono<Void> send(@RequestBody Mail mail) {
-        return mailService.sendMail(mail);
+        return mailService.send(mail);
     }
 
 }

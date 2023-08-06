@@ -1,8 +1,8 @@
 package com.ecy.authservice.entity;
 
+import com.ecy.authentication.reactive.jwt.Credentials;
 import lombok.Builder;
 import lombok.Data;
-import org.ecy.authjwt.security.reactive.Credentials;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
