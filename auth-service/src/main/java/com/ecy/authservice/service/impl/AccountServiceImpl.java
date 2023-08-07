@@ -35,9 +35,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Mono<Account> find(Account account) {
-        return !account.getEmail().isEmpty() ?
-                accountRepository.findByEmail(account.getEmail()) :
-                accountRepository.findByUsername(account.getUsername());
+        return accountRepository.findByUsername(account.getUsername());
     }
 
     @Override
@@ -53,22 +51,21 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     @Transactional
-    public Mono<Boolean> delete(Account account) {
-        return accountRepository.delete(account).thenReturn(true);
+    public Mono<Void> delete(Account account) {
+        return accountRepository.delete(account);
     }
 
     @Override
     @Transactional
-    public Mono<Boolean> deleteAll() {
-        return accountRepository.deleteAll().thenReturn(true);
+    public Mono<Void> deleteAll() {
+        return accountRepository.deleteAll();
     }
 
     @Override
     public Mono<String> authenticate(Account account) {
         return find(account)
-                .filter(a -> passwordEncoder.matches(account.getPassword(), a.getPassword()))
-                .map(a -> tokenManager.generateToken(account).block())
-                .switchIfEmpty(Mono.error(new AuthorizationException("401 Unauthorized")));
+                .filter(acc -> passwordEncoder.matches(account.getPassword(), acc.getPassword()))
+                .map(tokenManager::generateToken).thenReturn("ds");
     }
 
 }

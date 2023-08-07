@@ -31,7 +31,7 @@ public class AccountVerificationServiceImpl implements AccountVerificationServic
 
     @Override
     public Mono<AccountVerification> create(Account account) {
-        return save(AccountVerification.builder()
+        return create(AccountVerification.builder()
                 .email(account.getEmail())
                 .verificationCode(UUID.randomUUID().toString())
                 .createDate(LocalDateTime.now())
@@ -47,7 +47,7 @@ public class AccountVerificationServiceImpl implements AccountVerificationServic
 
     @Override
     @Transactional
-    public Mono<AccountVerification> save(AccountVerification accountVerification) {
+    public Mono<AccountVerification> create(AccountVerification accountVerification) {
         return accountVerificationRepository.save(accountVerification);
     }
 
@@ -61,13 +61,13 @@ public class AccountVerificationServiceImpl implements AccountVerificationServic
         return accountVerificationRepository.findByVerificationCode(verificationCode)
                 .filter(accountVerification -> accountVerification.getExpireDate().isAfter(LocalDateTime.now()))
                 .doOnNext(accountVerification -> accountVerification.setConfirmDate(LocalDateTime.now()))
-                .delayUntil(accountVerification -> save(accountVerification))
+                .delayUntil(accountVerification -> create(accountVerification))
                 .thenReturn(true);
     }
 
     @Override
-    public Mono<Boolean> deleteAll() {
-        return accountVerificationRepository.deleteAll().thenReturn(true);
+    public Mono<Void> deleteAll() {
+        return accountVerificationRepository.deleteAll();
     }
 
 }

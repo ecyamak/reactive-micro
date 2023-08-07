@@ -3,6 +3,7 @@ package com.ecy.mailservice.listener;
 import com.ecy.mailservice.service.MailService;
 import com.ecy.notification.type.Mail;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
  * Time: 06:56
  */
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class MailServiceListener {

@@ -37,9 +37,8 @@ public class SMSRestController {
             log.info("Subscription ARN: " + subscribeResult.getSubscriptionArn() + "\n\n Status is " + subscribeResult.getSdkHttpMetadata().getHttpStatusCode());
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-        } finally {
-            return Mono.empty();
         }
+        return Mono.empty();
     }
 
     @GetMapping("/send")
@@ -56,9 +55,8 @@ public class SMSRestController {
             log.info(result.getMessageId() + "Message sent. Status was " + result.getSdkHttpMetadata().getHttpStatusCode());
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-        } finally {
-            return Mono.empty();
         }
+        return Mono.empty();
     }
 
 

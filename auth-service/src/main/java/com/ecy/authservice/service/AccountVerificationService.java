@@ -15,12 +15,12 @@ public interface AccountVerificationService {
 
     Mono<AccountVerification> create(Account account);
 
-    Mono<AccountVerification> save(AccountVerification accountVerification);
+    Mono<AccountVerification> create(AccountVerification accountVerification);
 
     Flux<AccountVerification> findAll();
 
     Mono<Boolean> verify(String verificationCode);
 
-    Mono<Boolean> deleteAll();
+    Mono<Void> deleteAll();
 
 }

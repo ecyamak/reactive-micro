@@ -3,6 +3,8 @@ package com.ecy.notification;
 import com.ecy.notification.type.Mail;
 import com.ecy.notification.type.PushNotification;
 import com.ecy.notification.type.SMS;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /**
  * Author: ecyamak
@@ -10,6 +12,7 @@ import com.ecy.notification.type.SMS;
  * Time: 18:51
  */
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class NotificationFactory {
 
     public static Notification get(NotificationType notificationType, String to, String subject, String message) {

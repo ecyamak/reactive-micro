@@ -19,17 +19,17 @@ public class AuthenticationManager implements ReactiveAuthenticationManager {
     public Mono<Authentication> authenticate(Authentication authentication) {
         String token = authentication.getCredentials().toString();
         return Mono.just(tokenManager.validateToken(token))
-                .filter(valid -> valid.block())
+                .filter(valid -> valid)
                 .switchIfEmpty(Mono.empty())
                 .map(valid -> {
-                    Claims claims = tokenManager.getClaims(token).block();
+                    Claims claims = tokenManager.getClaims(token);
                     List<String> roleList = claims.get("role", List.class);
                     return new UsernamePasswordAuthenticationToken(
                             claims.getSubject(),
                             null,
                             roleList.stream()
                                     .map(SimpleGrantedAuthority::new)
-                                    .collect(Collectors.toList())
+                                    .toList()
                     );
                 });
     }

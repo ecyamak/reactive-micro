@@ -7,6 +7,14 @@ if [ "$1" = "mongo" ]; then
   else
     echo "invalid command"
   fi
+elif [ "$1" = "postgres" ]; then
+  if [ "$2" = "up" ]; then
+    docker compose -f docker-compose-postgres.yml up -d
+  elif [ "$2" = "down" ]; then
+    docker compose -f docker-compose-postgres.yml down -v
+  else
+    echo "invalid command"
+  fi
 elif [ "$1" = "kafka" ]; then
   if [ "$2" = "up" ]; then
     docker compose -f docker-compose-kafka.yml up -d
