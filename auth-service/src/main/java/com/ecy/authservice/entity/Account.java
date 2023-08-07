@@ -20,23 +20,13 @@ import java.util.Set;
 @Document
 public class Account implements Credentials {
 
-    enum Status {
-        NOT_VERIFIED,
-        ACTIVE,
-        PASSIVE
-    }
-
-    enum Role {
-        ROLE_USER,
-        ROLE_ADMIN
-    }
-
     @Id
     private String email;
     private String username;
     private String password;
     private Status status;
     private Set<String> roles;
-    private LocalDateTime creationDate;
+    private LocalDateTime createDate;
+    private LocalDateTime updateDate;
 
 }

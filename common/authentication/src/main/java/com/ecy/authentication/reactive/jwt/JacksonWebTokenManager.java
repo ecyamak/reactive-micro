@@ -5,7 +5,6 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
-import reactor.core.publisher.Mono;
 
 import java.security.Key;
 import java.util.Date;
@@ -27,27 +26,27 @@ public class JacksonWebTokenManager implements TokenManager {
     }
 
     @Override
-    public Mono<String> generateToken(Credentials credentials) {
-        return Mono.just(Jwts.builder()
+    public String generateToken(Credentials credentials) {
+        return Jwts.builder()
                 .setClaims(Map.of("role", credentials.getRoles()))
                 .setSubject(credentials.getUsername())
                 .setExpiration(new Date(new Date().getTime() + expiration))
                 .setIssuedAt(new Date())
                 .signWith(key)
-                .compact());
+                .compact();
     }
 
     @Override
-    public Mono<Boolean> validateToken(String token) {
-        Date expirationDate = getClaims(token).block().getExpiration();
-        return Mono.just(!expirationDate.before(new Date()));
+    public Boolean validateToken(String token) {
+        Date expirationDate = getClaims(token).getExpiration();
+        return !expirationDate.before(new Date());
     }
 
     @Override
-    public Mono<Claims> getClaims(String token) {
-        return Mono.just(Jwts.parserBuilder()
+    public Claims getClaims(String token) {
+        return Jwts.parserBuilder()
                 .setSigningKey(key).build()
-                .parseClaimsJws(token).getBody());
+                .parseClaimsJws(token).getBody();
     }
 
 }

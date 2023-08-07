@@ -19,9 +19,9 @@ public interface AccountService {
 
     Mono<Account> update(Account account);
 
-    Mono<Boolean> delete(Account account);
+    Mono<Void> delete(Account account);
 
-    Mono<Boolean> deleteAll();
+    Mono<Void> deleteAll();
 
     Mono<String> authenticate(Account account);
 

@@ -1,10 +1,9 @@
 package com.ecy.authservice.controller;
 
+import com.ecy.authservice.dto.AccountDTO;
 import com.ecy.authservice.entity.Account;
 import com.ecy.authservice.entity.AccountVerification;
-import com.ecy.authservice.entity.User;
-import com.ecy.authservice.manager.AccountManager;
-import com.ecy.authservice.service.UserService;
+import com.ecy.authservice.service.AuthService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -15,49 +14,45 @@ import java.util.Map;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("/auth")
 public class AuthRestController {
 
-    private final UserService userService;
-    private final AccountManager accountManager;
+    private final AuthService authService;
 
     @PostMapping("/signin")
-    public Mono<Map<String, String>> signin(@RequestBody User user) {
-        return userService.authenticate(user)
-                .filter(r -> !r.isEmpty())
-                .map(r -> Map.of("token", r))
-                .switchIfEmpty(Mono.empty());
+    public Mono<Map<String, String>> signin(@RequestBody AccountDTO accountDTO) {
+        return authService.signin(accountDTO);
     }
 
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
-    public Mono<Void> signup(@RequestBody Account account) {
-        return accountManager.createAccount(account);
+    public Mono<Boolean> signup(@RequestBody AccountDTO accountDTO) {
+        return authService.signup(accountDTO);
     }
 
     @GetMapping("/verify")
     public Mono<Boolean> verify(@RequestParam String verificationCode) {
-        return accountManager.verifyAccount(verificationCode);
+        return authService.verify(verificationCode);
     }
 
-    @GetMapping("/all")
-    public Flux<Account> getAll() {
-        return accountManager.getAllAccounts();
+    @GetMapping("/accounts")
+    public Flux<Account> getAccounts() {
+        return authService.getAccounts();
     }
 
-    //@PreAuthorize("hasRole('ROLE_ADMIN')")
-    @DeleteMapping("/all")
-    public Mono<Boolean> deleteAll() {
-        return accountManager.deleteAllAccounts();
+    @DeleteMapping("/accounts")
+    public Mono<Void> deleteAccounts() {
+        return authService.deleteAccounts();
     }
 
-    @GetMapping("/aall")
-    public Flux<AccountVerification> getAall() {
-        return accountManager.getAllVerifications();
+    @GetMapping("/verifications")
+    public Flux<AccountVerification> getVerfications() {
+        return authService.getVerifications();
     }
 
-    @DeleteMapping("/aall")
-    public Mono<Boolean> getDeleteAall() {
-        return accountManager.deleteAllVerifications();
+    @DeleteMapping("/verifications")
+    public Mono<Void> deleteVerifications() {
+        return authService.deleteVerifications();
     }
 
 }
