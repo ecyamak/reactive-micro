@@ -32,15 +32,15 @@ public class AuthServiceImpl implements AuthService {
     public Mono<Map<String, String>> signin(AccountDTO accountDTO) {
         return accountService.authenticate(accountMapper.mapToAccount(accountDTO))
                 .filter(r -> !r.isEmpty())
-                .map(r -> Map.of("token", r))
-                .switchIfEmpty(Mono.empty());
+                .map(r -> Map.of("token", r));
     }
 
     @Override
-    public Mono<Boolean> signup(AccountDTO accountDTO) {
-        return accountService.create(accountMapper.mapToAccount(accountDTO))
+    public Mono<Void> signup(AccountDTO accountDTO) {
+        return accountService
+                .create(accountMapper.mapToAccount(accountDTO))
                 .flatMap(accountVerificationService::create)
-                .hasElement();
+                .then();
     }
 
     @Override

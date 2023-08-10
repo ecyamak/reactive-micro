@@ -2,7 +2,7 @@ package com.ecy.authservice.service.impl;
 
 import com.ecy.authentication.reactive.jwt.TokenManager;
 import com.ecy.authservice.entity.Account;
-import com.ecy.authservice.exception.AuthorizationException;
+import com.ecy.authservice.exception.AuthenticationException;
 import com.ecy.authservice.repository.AccountRepository;
 import com.ecy.authservice.service.AccountService;
 import lombok.RequiredArgsConstructor;
@@ -29,8 +29,9 @@ public class AccountServiceImpl implements AccountService {
     @Override
     @Transactional
     public Mono<Account> create(Account account) {
-        account.setPassword(passwordEncoder.encode(account.getPassword()));
-        return accountRepository.insert(account);
+        return Mono
+                .fromRunnable(() -> account.setPassword(passwordEncoder.encode(account.getPassword())))
+                .then(accountRepository.insert(account));
     }
 
     @Override
@@ -65,7 +66,8 @@ public class AccountServiceImpl implements AccountService {
     public Mono<String> authenticate(Account account) {
         return find(account)
                 .filter(acc -> passwordEncoder.matches(account.getPassword(), acc.getPassword()))
-                .map(tokenManager::generateToken).thenReturn("ds");
+                .map(tokenManager::generateToken)
+                .switchIfEmpty(Mono.error(new AuthenticationException("Not Authenticated")));
     }
 
 }

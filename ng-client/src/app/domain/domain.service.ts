@@ -1,28 +1,20 @@
-import {inject, Injectable} from "@angular/core";
-import {of, tap} from "rxjs";
-import {Router} from "@angular/router";
+import {Injectable} from "@angular/core";
 
 @Injectable({
   providedIn: 'root'
 })
 export class DomainService {
 
-  authenticated: boolean = true;
+  /*
+  constructor(public authService: AuthService) {
+  }
 
   isAvailable() {
-    return of(this.authenticated).pipe(
+    console.log(this.authService.authenticated.value);
+    return of(this.authService.authenticated.value).pipe(
       tap((v) => console.log(v))
     )
   }
+   */
 
-}
-
-export const AUTHGUARD = () => {
-  const router: Router = inject(Router);
-  const service: DomainService = inject(DomainService);
-  return service.isAvailable().pipe(
-    tap((value) => {
-      return !value ? router.navigate(['/login']) : true;
-    })
-  );
 }

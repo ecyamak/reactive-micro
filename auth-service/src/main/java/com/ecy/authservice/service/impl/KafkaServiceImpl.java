@@ -5,6 +5,9 @@ import com.ecy.notification.Notification;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Author: ecyamak
@@ -19,8 +22,8 @@ public class KafkaServiceImpl implements KafkaService {
     private final KafkaTemplate<String, Notification> kafkaTemplate;
 
     @Override
-    public void sendNotification(Notification notification) {
-        kafkaTemplate.send("auth-topic", notification);
+    public Mono<Void> sendNotification(Notification notification) {
+        return Mono.fromFuture(CompletableFuture.runAsync(() -> kafkaTemplate.send("auth-topic", notification))).then();
     }
 
 }

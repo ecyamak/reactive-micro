@@ -9,22 +9,23 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
     '<form id="accountInform" [formGroup]="formGroup">' +
     '  <h4>Account Information</h4>' +
     '  <div class="formgrid grid">' +
-    '    <div class="field col-6">' +
-    '      <label for="email">E-mail</label>' +
-    '      <input class="w-full" pInputText id="email" placeholder="you@example.com"/>' +
-    '    </div>' +
-    '  </div>' +
-    '  <div class="formgrid grid">' +
-    '    <div class="field col-6">' +
+    '    <div class="field col">' +
     '      <div class="formgrid grid">' +
     '        <div class="field col-6 mb-0">' +
     '          <label for="username">Username</label>' +
     '        </div>' +
     '        <div class="field col-6 mb-0">' +
-    '          <validation-message [control]="formGroup.get(\'username\')!"></validation-message>'+
+    '          <validation-message [control]="formGroup.controls[\'username\']"></validation-message>'+
     '        </div>' +
     '      </div>' +
-    '      <input id="username" formControlName="username" pInputText pKeyFilter="alphanum" class="w-full p-inputtext"/>' +
+    '<span class="p-input-icon-left w-full">' +
+    '<i class="pi pi-user"></i>' +
+    '      <input id="username" formControlName="username" pInputText pKeyFilter="alphanum" class="w-full p-inputtext">' +
+    '</span>' +
+    '    </div>' +
+    '    <div class="field col">' +
+    '      <label for="email">E-mail</label>' +
+    '      <input class="w-full" pInputText id="email" placeholder="you@example.com" disabled="true"/>' +
     '    </div>' +
     '  </div>' +
     '  <div class="formgrid grid">' +
@@ -34,7 +35,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
     '          <label for="password">Password</label>' +
     '        </div>' +
     '        <div class="field col-6 mb-0">' +
-    '          <validation-message [control]="formGroup.get(\'password\')!"></validation-message>'+
+    '          <validation-message [control]="formGroup.controls[\'password\']"></validation-message>'+
     '        </div>' +
     '      </div>' +
     '      <p-password id="password" [feedback]="true" [toggleMask]="true" formControlName="password" styleClass="w-full" inputStyleClass="w-full">' +
@@ -56,7 +57,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
     '          <label for="confirmPassword">Confirm Password</label>' +
     '        </div>' +
     '        <div class="field col-6 mb-0">' +
-    '          <validation-message [control]="formGroup.get(\'confirmPassword\')!"></validation-message>'+
+    '          <validation-message [control]="formGroup.controls[\'confirmPassword\']"></validation-message>'+
     '        </div>' +
     '      </div>' +
     '      <p-password id="password" [feedback]="false" [toggleMask]="true" formControlName="confirmPassword" styleClass="w-full" inputStyleClass="w-full"/>' +
@@ -78,7 +79,7 @@ export class AccountInformComponent implements OnInit {
 
   buildForm(): void {
     this.formGroup = this.formBuilder.group({
-      username: [null, Validators.compose([Validators.required, Validators.minLength(3)])],
+      username: [null, Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(5), Validators.pattern('[a-zA-Z ]*')])],
       password: [null, Validators.compose([Validators.required, Validators.minLength(8)])],
       confirmPassword: [null, Validators.compose([Validators.required, Validators.minLength(8)])]
     })

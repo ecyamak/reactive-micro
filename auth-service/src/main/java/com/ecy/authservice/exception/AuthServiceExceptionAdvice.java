@@ -2,6 +2,7 @@ package com.ecy.authservice.exception;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Slf4j
 @ControllerAdvice
-public class AuthServiceControllerAdvice {
+public class AuthServiceExceptionAdvice {
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(RuntimeException.class)
@@ -24,15 +25,10 @@ public class AuthServiceControllerAdvice {
         log.error(e.getMessage());
     }
 
-    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
-    @ExceptionHandler(DataAccessException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(DuplicateKeyException.class)
     public void handleDataAccessException(ServerHttpRequest request, Exception e) {
         log.error(e.getMessage());
-    }
-
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    @ExceptionHandler(AuthorizationException.class)
-    public void handleAuthorizationException(ServerHttpRequest request, Exception e) {
-        log.error(e.getMessage());
+        e.printStackTrace();
     }
 }

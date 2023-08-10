@@ -1,5 +1,5 @@
 <div class="flex justify-content-end flex-wrap card-container">
-  <div *ngIf="control.invalid && control.errors" class="alert flex align-items-center justify-content-center">
-    Invalid username
+  <div *ngIf="control.invalid && control.dirty && !control.disabled && message" class="alert flex align-items-center justify-content-center">
+    {{message}}
   </div>
 </div>

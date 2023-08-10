@@ -18,7 +18,7 @@ public interface AuthService {
 
     Mono<Map<String, String>> signin(AccountDTO accountDTO);
 
-    Mono<Boolean> signup(AccountDTO accountDTO);
+    Mono<Void> signup(AccountDTO accountDTO);
 
     Mono<Account> getAccount(Account account);
 
