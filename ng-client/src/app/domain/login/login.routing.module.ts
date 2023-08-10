@@ -1,18 +1,23 @@
 import {NgModule} from "@angular/core";
 import {RouterModule, Routes} from "@angular/router";
-import {AuthComponent} from "./component/auth.component";
+import {LoginComponent} from "./login.component";
+import {VerificationComponent} from "./component/verification.component";
 
 const routes: Routes = [
   {
     path: "",
-    component: AuthComponent,
+    component: LoginComponent,
     children : [
       {
         path: "signup",
         loadChildren: () => import('../signup/signup.module').then(m => m.SignupModule)
       }
     ]
-  }
+  },
+  {
+    path: 'verify/:verificationCode',
+    component: VerificationComponent,
+  },
 ];
 
 @NgModule({

@@ -1,6 +1,7 @@
 package com.ecy.authservice.service;
 
 import com.ecy.notification.Notification;
+import reactor.core.publisher.Mono;
 
 /**
  * Author: ecyamak
@@ -9,6 +10,6 @@ import com.ecy.notification.Notification;
  */
 public interface KafkaService {
 
-    void sendNotification(Notification notification);
+    Mono<Void> sendNotification(Notification notification);
 
 }

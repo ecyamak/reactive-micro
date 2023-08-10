@@ -15,6 +15,14 @@ const routes: Routes = [
     loadComponent: () => import('./component/unauthorized.component').then(c => c.UnauthorizedComponent)
   },
   {
+    path: 'unverified',
+    loadComponent: () => import('./component/unverified.component').then(c => c.UnverifiedComponent)
+  },
+  {
+    path: 'verified',
+    loadComponent: () => import('./component/verified.component').then(c => c.VerifiedComponent)
+  },
+  {
     path: '**',
     redirectTo: 'not-found'
   },

@@ -5,6 +5,7 @@ import {AppRoutingModule} from "./app.routing.module";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {HttpServiceInterceptor} from "./common/interceptor/http.service.interceptor";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {AuthService} from "./common/service/auth.service";
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,6 +16,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     AppRoutingModule,
   ],
   providers: [
+    AuthService,
     {
       provide: HTTP_INTERCEPTORS, useClass: HttpServiceInterceptor, multi: true
     }

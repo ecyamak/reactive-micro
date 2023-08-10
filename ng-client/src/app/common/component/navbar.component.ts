@@ -1,5 +1,7 @@
 import {Component} from "@angular/core";
 import {SearchbarComponent} from "./searchbar.component";
+import {Router} from "@angular/router";
+import {AuthService} from "../service/auth.service";
 
 @Component({
   standalone: true,
@@ -9,7 +11,7 @@ import {SearchbarComponent} from "./searchbar.component";
     '<div class="w3-top">' +
     '  <div class="w3-bar ecy-theme-darker-blue w3-left-align w3-large">' +
     '    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large ecy-hover-white"><i class="fa fa-bars"></i></a>' +
-    '    <a class="w3-bar-item w3-button w3-padding-large ecy-hover-white"><i class="fa fa-leaf w3-margin-right"></i>springbook</a>' +
+    '    <a href="/login" class="w3-bar-item w3-button w3-padding-large ecy-hover-white"><i class="fa fa-leaf w3-margin-right"></i>springbook</a>' +
     '    <a class="w3-bar-item w3-button w3-hide-small w3-padding-large ecy-hover-white" title="News"><i class="fa fa-house"></i></a>' +
     '    <a class="w3-bar-item w3-button w3-hide-small w3-padding-large ecy-hover-white" title="Profile"><i class="fa fa-user"></i></a>' +
     '    <a class="w3-bar-item w3-button w3-hide-small w3-padding-large ecy-hover-white" title="Messages"><i class="fa fa-message"></i></a>' +
@@ -21,7 +23,7 @@ import {SearchbarComponent} from "./searchbar.component";
     '        <a class="w3-bar-item w3-button">Jane likes your post</a>' +
     '      </div>' +
     '    </div>' +
-    '    <a href="/login" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large ecy-hover-white" title="Logout"><i class="fa fa-right-from-bracket"></i></a>' +
+    '    <button (click)="logout()" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large ecy-hover-white" title="Logout"><i class="fa fa-right-from-bracket"></i></button>' +
     '    <a class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large ecy-hover-white" title="Settings"><i class="fa fa-gear"></i></a>' +
     '    <!--' +
     '    <a class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white" title="My Account">' +
@@ -40,5 +42,14 @@ import {SearchbarComponent} from "./searchbar.component";
     '</div>'
 })
 export class NavbarComponent {
+
+  constructor(private router: Router,
+              private authService: AuthService) {
+  }
+
+  logout() {
+    //sessionStorage.removeItem('token');
+    this.router.navigateByUrl('/login');
+  }
 
 }

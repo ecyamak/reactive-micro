@@ -1,19 +1,20 @@
 import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
-import {AuthService} from "../service/auth.service";
+import {AuthService} from "../../common/service/auth.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
-  selector: 'auth',
-  templateUrl: 'auth.component.html',
-  styleUrls: ['auth.component.css']
+  selector: 'login',
+  templateUrl: 'login.component.html',
+  styleUrls: ['login.component.css']
 })
-export class AuthComponent implements OnInit{
+export class LoginComponent implements OnInit{
 
   @ViewChild('container') container: ElementRef;
 
   credentials = {
-    username: 'user',
+    username: 'admin',
+    email: '',
     password: 'password',
     roles: null
   };
@@ -31,14 +32,13 @@ export class AuthComponent implements OnInit{
 
   ngOnInit(): void {
     this.signinForm = this.formBuilder.group({
-      username: ['user', [Validators.required, Validators.minLength(4)]],
-      password: ['password', [Validators.required, Validators.minLength(4)]]
+      username: [this.credentials.username, [Validators.required, Validators.minLength(4)]],
+      password: [this.credentials.password, [Validators.required, Validators.minLength(4)]]
     });
     this.signupForm = this.formBuilder.group({
-      username1: ['user', [Validators.required, Validators.minLength(4)]],
-      password1: ['password', [Validators.required, Validators.minLength(4)]]
+      email: ["ensarcanyamak@gmail.com", [Validators.required, Validators.minLength(4)]],
+      password: ["password", [Validators.required, Validators.minLength(4)]]
     });
-
   }
 
   signin() {
@@ -54,19 +54,23 @@ export class AuthComponent implements OnInit{
   authenticate() {
     this.activatedRoute.data.subscribe(data => {
       if (this.sign === 'in') {
-        this.authService.signin(this.credentials, () => {
+        this.authService.signin(this.prepareData(this.signinForm), () => {
           this.router.navigateByUrl('/home');
         });
       } else {
-        this.router.navigateByUrl('/signup');
-        /*
-        this.authService.signup(this.credentials, () => {
-          this.router.navigateByUrl('/home');
+        this.authService.signup(this.prepareData(this.signupForm), () => {
+          this.router.navigateByUrl('/signup');
         });
-         */
       }
     });
     return false;
+  }
+
+  prepareData(form: FormGroup) {
+    this.credentials.username = form.value.username;
+    this.credentials.email = form.value.email;
+    this.credentials.password = form.value.password;
+    return this.credentials;
   }
 
 }

@@ -2,6 +2,8 @@ package com.ecy.notification;
 
 import lombok.*;
 
+import java.io.Serializable;
+
 /**
  * Author: ecyamak
  * Date: 5.08.2023
@@ -11,7 +13,7 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public abstract class Notification {
+public abstract class Notification implements Serializable {
 
     private String to;
     private String subject;

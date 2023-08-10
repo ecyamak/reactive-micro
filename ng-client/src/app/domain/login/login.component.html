@@ -2,16 +2,16 @@
   <div class="container" id="container" #container>
     <div class="form-container sign-up-container">
       <form [formGroup]="signupForm" (submit)="authenticate()">
-        <h1>Create Account</h1>
-        <div class="social-container">
-          <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-          <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-          <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+        <h1>Sign Up</h1>
+        <span>use your email for registration</span>
+        <div style="width: 100%">
+          <validation-message [control]="signupForm.controls['email']"></validation-message>
+          <input type="email" placeholder="Email" name="email" formControlName="email" />
         </div>
-        <span>or use your email for registration</span>
-        <input type="text" placeholder="Name" name="username1" formControlName="username1"/>
-        <input type="email" placeholder="Email" />
-        <input type="password" placeholder="Password" name="password1" formControlName="password1"/>
+        <div style="width: 100%;">
+          <validation-message [control]="signupForm.controls['password']"></validation-message>
+          <input type="password" placeholder="Password" name="password" formControlName="password"/>
+        </div>
         <button type="submit" [disabled]="!signupForm.valid">Sign Up</button>
       </form>
     </div>
@@ -24,10 +24,14 @@
           <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
         </div>
         <span>or use your account</span>
-        <validation-message [control]="signinForm.get('username')!"></validation-message>
-        <input id="username" type="email" placeholder="Username" name="username" formControlName="username"/>
-        <validation-message [control]="signinForm.get('password')!"></validation-message>
-        <input id="password" type="password" placeholder="Password" name="password" formControlName="password"/>
+        <div style="width: 100%">
+          <validation-message [control]="signinForm.controls['username']"></validation-message>
+          <input id="username" type="email" placeholder="Username" name="username" formControlName="username"/>
+        </div>
+        <div style="width: 100%">
+          <validation-message [control]="signinForm.controls['password']"></validation-message>
+          <input id="password" type="password" placeholder="Password" name="password" formControlName="password"/>
+        </div>
         <a href="#">Forgot your password?</a>
         <button type="submit" [disabled]="!signinForm.valid">Sign In</button>
       </form>

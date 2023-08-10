@@ -1,13 +1,14 @@
 import {NgModule} from "@angular/core";
-import {AuthComponent} from "./component/auth.component";
-import {AuthService} from "./service/auth.service";
+import {LoginComponent} from "./login.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {LoginRoutingModule} from "./login.routing.module";
 import {ValidationMessage} from "../../utils/validation/validation.message";
+import {VerificationComponent} from "./component/verification.component";
 
 @NgModule({
   declarations: [
-    AuthComponent
+    LoginComponent,
+    VerificationComponent
   ],
   imports: [
     LoginRoutingModule,
@@ -15,9 +16,7 @@ import {ValidationMessage} from "../../utils/validation/validation.message";
     ReactiveFormsModule,
     ValidationMessage
   ],
-  providers: [
-    AuthService
-  ]
+  providers: []
 })
 export class LoginModule {
 
