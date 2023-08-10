@@ -7,8 +7,4 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest(classes = FirstServiceApplication.class)
 class FirstServiceApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
-
 }

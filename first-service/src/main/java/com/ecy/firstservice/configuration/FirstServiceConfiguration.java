@@ -7,6 +7,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRepositories;
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
@@ -20,6 +21,7 @@ import java.util.Map;
 @Configuration
 @EnableKafka
 @EnableDiscoveryClient
+@EnableJpaRepositories(basePackages = "com.ecy.firstservice.repository")
 @EnableReactiveMongoRepositories(basePackages = "com.ecy.firstservice.repository")
 public class FirstServiceConfiguration {
 
