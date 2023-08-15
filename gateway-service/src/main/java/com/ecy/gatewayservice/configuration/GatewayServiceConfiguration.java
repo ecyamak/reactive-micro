@@ -31,8 +31,11 @@ public class GatewayServiceConfiguration {
                         .path("/first/**")
                         .uri("lb://first-service"))
                 .route(r -> r
-                        .path("/second/**")
-                        .uri("lb://second-service"))
+                        .path("/products/**")
+                        .uri("lb://product-service"))
+                .route(r -> r
+                        .path("/orders/**")
+                        .uri("lb://order-service"))
                 .build();
     }
 
