@@ -31,4 +31,20 @@ public class OrderRestController {
     public Flux<OrderResponse> getAll() {
         return orderService.getAll();
     }
+
+    @GetMapping("/order/info")
+    public Mono<String> orderInfo() {
+        return Mono.just("This is order service");
+    }
+
+    @GetMapping("/order/break")
+    public Mono<String> orderBreak() {
+        return Mono.error(new RuntimeException("Order error"));
+    }
+
+    @GetMapping("/order/slow")
+    public Mono<String> orderSlow() throws InterruptedException {
+        Thread.sleep(5000);
+        return Mono.just("This is order service");
+    }
 }
