@@ -5,7 +5,6 @@ import com.ecy.firstservice.service.FirstService;
 import com.ecy.firstservice.service.KafkaProducerService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -16,19 +15,10 @@ public class FirstRestController {
 
     private final FirstService service;
     private final KafkaProducerService kafkaProducerService;
-    private final WebClient.Builder webClientBuilder;
 
     @GetMapping
     public Mono<Object> info() {
         return Mono.just("This is first service.");
-    }
-
-    @GetMapping("/second")
-    public Mono<String> secondInfo() {
-        return webClientBuilder.build()
-                .get().uri("lb://second-service/second")
-                .retrieve()
-                .bodyToMono(String.class);
     }
 
     @PostMapping("/kafka")
