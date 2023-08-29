@@ -112,25 +112,6 @@ services:
         condition: service_started
       kafka:
         condition: service_started
-  second-service:
-    container_name: second-service
-    build:
-      context: second-service
-      dockerfile: Dockerfile
-    image: second-service
-    ports:
-      - 8082:8082
-    expose:
-      - 8082
-    networks:
-      - service-network
-    depends_on:
-      discovery-service:
-        condition: service_healthy
-      second-mongodb:
-        condition: service_started
-      kafka:
-        condition: service_started
   auth-mongodb:
     container_name: auth-mongodb
     image: mongo:latest
@@ -153,21 +134,9 @@ services:
       - service-network
     volumes:
       - mongodb-first:/data/db
-  second-mongodb:
-    container_name: second-mongodb
-    image: mongo:latest
-    ports:
-      - 27002:27017
-    expose:
-      - 27002
-    networks:
-      - service-network
-    volumes:
-      - mongodb-second:/data/db
 volumes:
   mongodb-auth:
   mongodb-first:
-  mongodb-second:
 networks:
   service-network:
     driver: bridge

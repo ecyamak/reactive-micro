@@ -6,6 +6,7 @@ import com.ecy.productservice.model.Product;
 import com.ecy.productservice.record.SearchCriteria;
 import com.ecy.productservice.repository.ProductRepository;
 import com.ecy.productservice.service.ProductService;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
@@ -23,20 +24,27 @@ import reactor.core.publisher.Mono;
 public class ProductServiceImpl extends AbstractBaseService implements ProductService {
 
     private final ProductRepository productRepository;
+    private final ModelMapper modelMapper;
 
     private ProductServiceImpl(ReactiveMongoTemplate reactiveMongoTemplate,
-                               ProductRepository productRepository) {
+                               ProductRepository productRepository,
+                               ModelMapper modelMapper) {
         super(reactiveMongoTemplate);
         this.productRepository = productRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
     public Mono<Void> create(ProductRequest productRequest) {
+        /*
         var product = Product.builder()
                 .name(productRequest.getName())
                 .description(productRequest.getDescription())
                 .price(productRequest.getPrice())
                 .build();
+
+         */
+        var product = modelMapper.map(productRequest, Product.class);
         return Mono.when(productRepository.save(product));
     }
 

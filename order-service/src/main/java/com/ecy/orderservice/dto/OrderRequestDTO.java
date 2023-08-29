@@ -9,8 +9,10 @@ import lombok.Data;
  */
 
 @Data
-public class OrderResponse {
+public class OrderRequestDTO {
 
-    private String id;
-    private String item;
+    private String productId;
+    private Integer quantity;
+    private String userId;
+
 }

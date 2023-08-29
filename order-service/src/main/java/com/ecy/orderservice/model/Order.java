@@ -1,12 +1,16 @@
 package com.ecy.orderservice.model;
 
-import lombok.Builder;
+import com.ecy.data.enums.InventoryStatus;
+import com.ecy.data.enums.OrderStatus;
+import com.ecy.data.enums.PaymentStatus;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Version;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
+import java.time.Instant;
 
 /**
  * Author: ecyamak
@@ -15,13 +19,22 @@ import java.io.Serializable;
  */
 
 @Data
-@Builder
-@EqualsAndHashCode(of = {"id"})
+@NoArgsConstructor
 @Document(value = "order")
 public class Order implements Serializable {
 
     @Id
-    private String id;
-    private String item;
+    private String orderId;
+    private String productId;
+    private Integer quantity;
+    private Instant orderDate;
+    private String userId;
+
+    private OrderStatus orderStatus;
+    private PaymentStatus paymentStatus;
+    private InventoryStatus inventoryStatus;
+
+    @Version
+    private int version;
 
 }

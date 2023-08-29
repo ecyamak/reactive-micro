@@ -25,18 +25,6 @@ services:
       - 8081
     networks:
       - service-network
-  second-service:
-    container_name: second-service
-    build:
-      context: second-service
-      dockerfile: Dockerfile
-    image: second-service
-    ports:
-      - 8082:8082
-    expose:
-      - 8082
-    networks:
-      - service-network
 networks:
   service-network:
     driver: bridge

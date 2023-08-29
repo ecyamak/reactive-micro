@@ -1,19 +1,18 @@
 package com.ecy.orderservice.service;
 
-import com.ecy.orderservice.dto.OrderRequest;
-import com.ecy.orderservice.dto.OrderResponse;
-import reactor.core.publisher.Flux;
+import com.ecy.orderservice.model.Order;
 import reactor.core.publisher.Mono;
 
 /**
  * Author: ecyamak
- * Date: 10.08.2023
- * Time: 23:09
+ * Date: 28.08.2023
+ * Time: 00:56
  */
+
 public interface OrderService {
 
-    Mono<Void> create(OrderRequest orderRequest);
+    Mono<Order> save(Order order);
 
-    Flux<OrderResponse> getAll();
+    Mono<Order> get(String orderId);
 
 }
