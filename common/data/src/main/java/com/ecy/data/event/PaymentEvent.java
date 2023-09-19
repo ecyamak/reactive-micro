@@ -4,10 +4,8 @@ import com.ecy.data.dto.PaymentDTO;
 import com.ecy.data.enums.PaymentStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
-import java.util.UUID;
 
 /**
  * Author: ecyamak
@@ -18,6 +16,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor(staticName = "of")
+@EqualsAndHashCode(callSuper = true)
 public class PaymentEvent extends BaseEvent {
 
     private PaymentDTO paymentDTO;

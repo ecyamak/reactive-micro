@@ -1,13 +1,13 @@
 package com.ecy.authservice.service.impl;
 
 import com.ecy.authservice.dto.AccountDTO;
-import com.ecy.authservice.dto.mapper.AccountMapper;
 import com.ecy.authservice.entity.Account;
 import com.ecy.authservice.entity.AccountVerification;
 import com.ecy.authservice.service.AccountService;
 import com.ecy.authservice.service.AccountVerificationService;
 import com.ecy.authservice.service.AuthService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -26,11 +26,11 @@ public class AuthServiceImpl implements AuthService {
 
     private final AccountService accountService;
     private final AccountVerificationService accountVerificationService;
-    private final AccountMapper accountMapper;
+    private final ModelMapper modelMapper;
 
     @Override
     public Mono<Map<String, String>> signin(AccountDTO accountDTO) {
-        return accountService.authenticate(accountMapper.mapToAccount(accountDTO))
+        return accountService.authenticate(modelMapper.map(accountDTO, Account.class))
                 .filter(r -> !r.isEmpty())
                 .map(r -> Map.of("token", r));
     }
@@ -38,7 +38,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public Mono<Void> signup(AccountDTO accountDTO) {
         return accountService
-                .create(accountMapper.mapToAccount(accountDTO))
+                .create(modelMapper.map(accountDTO, Account.class))
                 .flatMap(accountVerificationService::create)
                 .then();
     }
