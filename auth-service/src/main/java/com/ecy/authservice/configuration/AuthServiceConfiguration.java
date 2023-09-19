@@ -4,6 +4,8 @@ import com.ecy.authentication.reactive.jwt.AuthenticationManager;
 import com.ecy.authentication.reactive.jwt.JacksonWebTokenManager;
 import com.ecy.authentication.reactive.jwt.SecurityContextRepository;
 import com.ecy.authentication.reactive.jwt.TokenManager;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -60,6 +62,13 @@ public class AuthServiceConfiguration {
     @Bean
     public ServerSecurityContextRepository securityContextRepository() {
         return new SecurityContextRepository(authenticationManager());
+    }
+
+    @Bean
+    public ModelMapper modelMapper() {
+        var modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        return modelMapper;
     }
 
 }

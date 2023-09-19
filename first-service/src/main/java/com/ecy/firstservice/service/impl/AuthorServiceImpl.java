@@ -1,13 +1,13 @@
 package com.ecy.firstservice.service.impl;
 
 import com.ecy.firstservice.dto.AuthorDTO;
-import com.ecy.firstservice.dto.mapper.AuthorMapper;
 import com.ecy.firstservice.entities.Author;
 import com.ecy.firstservice.repository.AuthorRepository;
 import com.ecy.firstservice.service.AuthorService;
 import com.ecy.firstservice.service.BaseService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,27 +26,27 @@ import java.util.List;
 public class AuthorServiceImpl extends BaseService<Author> implements AuthorService {
 
     private final AuthorRepository authorRepository;
-    private final AuthorMapper authorMapper;
+    private final ModelMapper modelMapper;
 
     @Autowired
     public AuthorServiceImpl(AuthorRepository authorRepository,
-                             AuthorMapper authorMapper) {
+                             ModelMapper modelMapper) {
         super(Author.class);
         this.authorRepository = authorRepository;
-        this.authorMapper = authorMapper;
+        this.modelMapper = modelMapper;
     }
 
     @Override
     @Transactional
     public void create(AuthorDTO authorDTO) {
-        authorRepository.save(authorMapper.mapToAuthor(authorDTO));
+        authorRepository.save(modelMapper.map(authorDTO, Author.class));
     }
 
     @Override
     @Transactional
     public AuthorDTO get(Long id) {
         try {
-            return authorMapper.mapToAuthorDTO(authorRepository.getReferenceById(id));
+            return modelMapper.map(authorRepository.getReferenceById(id), AuthorDTO.class);
         } catch (EntityNotFoundException exception) {
             log.error(exception.getMessage());
             return null;
@@ -56,25 +56,31 @@ public class AuthorServiceImpl extends BaseService<Author> implements AuthorServ
     @Override
     @Transactional
     public List<AuthorDTO> getAll() {
-        return authorMapper.mapToAuthorDTOList(authorRepository.findAll());
+        return authorRepository.findAll().stream()
+                .map(author -> modelMapper.map(author, AuthorDTO.class))
+                .toList();
     }
 
     @Override
     @Transactional
     public List<AuthorDTO> getAll(Pageable pageable) {
-        return authorMapper.mapToAuthorDTOList(authorRepository.findAll(pageable).getContent());
+        return authorRepository.findAll(pageable).getContent().stream()
+                .map(author -> modelMapper.map(author, AuthorDTO.class))
+                .toList();
     }
 
     @Override
     @Transactional
     public List<AuthorDTO> getAll(String filter, String operation, String value, Integer page) {
-        return authorMapper.mapToAuthorDTOList(search(filter, null, operation, value, page));
+        return search(filter, null, operation, value, page).stream()
+                .map(author -> modelMapper.map(author, AuthorDTO.class))
+                .toList();
     }
 
     @Override
     @Transactional
     public void update(AuthorDTO authorDTO) {
-        authorRepository.save(authorMapper.mapToAuthor(authorDTO));
+        authorRepository.save(modelMapper.map(authorDTO, Author.class));
     }
 
     @Override
@@ -86,7 +92,7 @@ public class AuthorServiceImpl extends BaseService<Author> implements AuthorServ
     @Override
     @Transactional
     public void delete(AuthorDTO authorDTO) {
-        authorRepository.delete(authorMapper.mapToAuthor(authorDTO));
+        authorRepository.delete(modelMapper.map(authorDTO, Author.class));
     }
 
     @Override

@@ -9,24 +9,4 @@
   <name>ng-client</name>
   <description>ng-client</description>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-clean-plugin</artifactId>
-        <version>2.5</version>
-        <configuration>
-          <filesets>
-            <fileset>
-              <directory>ng</directory>
-              <includes>
-                <include>*</include>
-              </includes>
-            </fileset>
-          </filesets>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
-
 </project>

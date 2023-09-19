@@ -4,6 +4,7 @@ import com.ecy.data.dto.InventoryDTO;
 import com.ecy.data.enums.InventoryStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
@@ -15,6 +16,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor(staticName = "of")
+@EqualsAndHashCode(callSuper = true)
 public class InventoryEvent extends BaseEvent {
 
     private InventoryDTO inventoryDTO;

@@ -1,13 +1,13 @@
 package com.ecy.firstservice.service.impl;
 
 import com.ecy.firstservice.dto.BookDTO;
-import com.ecy.firstservice.dto.mapper.BookMapper;
 import com.ecy.firstservice.entities.Book;
 import com.ecy.firstservice.repository.BookRepository;
 import com.ecy.firstservice.service.BaseService;
 import com.ecy.firstservice.service.BookService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,27 +26,27 @@ import java.util.List;
 public class BookServiceImpl extends BaseService<Book> implements BookService {
 
     private final BookRepository bookRepository;
-    private final BookMapper bookMapper;
+    private final ModelMapper modelMapper;
 
     @Autowired
     public BookServiceImpl(BookRepository bookRepository,
-                           BookMapper bookMapper) {
+                           ModelMapper modelMapper) {
         super(Book.class);
         this.bookRepository = bookRepository;
-        this.bookMapper = bookMapper;
+        this.modelMapper = modelMapper;
     }
 
     @Override
     @Transactional
     public void create(BookDTO bookDTO) {
-        bookRepository.save(bookMapper.mapToBook(bookDTO));
+        bookRepository.save(modelMapper.map(bookDTO, Book.class));
     }
 
     @Override
     @Transactional
     public BookDTO get(Long id) {
         try {
-            return bookMapper.mapToBookDTO(bookRepository.getReferenceById(id));
+            return modelMapper.map(bookRepository.getReferenceById(id), BookDTO.class);
         } catch (EntityNotFoundException exception) {
             log.error(exception.getMessage());
             return null;
@@ -56,24 +56,30 @@ public class BookServiceImpl extends BaseService<Book> implements BookService {
     @Override
     @Transactional
     public List<BookDTO> getAll() {
-        return bookMapper.mapToBookDTOList(bookRepository.findAll());
+        return bookRepository.findAll().stream()
+                .map(book -> modelMapper.map(book, BookDTO.class))
+                .toList();
     }
 
     @Override
     @Transactional
     public List<BookDTO> getAll(Pageable pageable) {
-        return bookMapper.mapToBookDTOList(bookRepository.findAll(pageable).getContent());
+        return bookRepository.findAll(pageable).getContent().stream()
+                .map(book -> modelMapper.map(book, BookDTO.class))
+                .toList();
     }
 
     @Override
     public List<BookDTO> getAll(String filter, String subFilter, String operation, String value, Integer page) {
-        return bookMapper.mapToBookDTOList(search(filter, subFilter, operation, value, page));
+        return search(filter, null, operation, value, page).stream()
+                .map(book -> modelMapper.map(book, BookDTO.class))
+                .toList();
     }
 
     @Override
     @Transactional
     public void update(BookDTO bookDTO) {
-        bookRepository.save(bookMapper.mapToBook(bookDTO));
+        bookRepository.save(modelMapper.map(bookDTO, Book.class));
     }
 
     @Override
@@ -85,7 +91,7 @@ public class BookServiceImpl extends BaseService<Book> implements BookService {
     @Override
     @Transactional
     public void delete(BookDTO bookDTO) {
-        bookRepository.delete(bookMapper.mapToBook(bookDTO));
+        bookRepository.delete(modelMapper.map(bookDTO, Book.class));
     }
 
     @Override
