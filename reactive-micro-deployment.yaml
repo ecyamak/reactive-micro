@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reactive-micro-deployment
+  labels:
+    app: reactive-micro
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reactive-micro
+  template:
+    metadata:
+      labels:
+        app: reactive-micro
+    spec:
+      containers:
+        - name: reactive-micro
+          image: reactive/config-service:latest
+          imagePullPolicy: Never
+          envFrom:
+            - secretRef:
+                name: config-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: reactive-config
+spec:
+  type: NodePort
+  selector:
+    app: reactive-micro
+  ports:
+    - port: 8888
+      targetPort: 8888
+      nodePort: 30001

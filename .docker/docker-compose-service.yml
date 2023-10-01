@@ -1,4 +1,4 @@
-version: '3.7'
+version: "3.7"
 name: service
 services:
   auth-service:
@@ -8,7 +8,7 @@ services:
       dockerfile: Dockerfile
     image: auth-service
     ports:
-      - 8079:8079
+      - "8079:8079"
     expose:
       - 8079
     networks:
@@ -20,7 +20,7 @@ services:
       dockerfile: Dockerfile
     image: first-service
     ports:
-      - 8081:8081
+      - "8081:8081"
     expose:
       - 8081
     networks:

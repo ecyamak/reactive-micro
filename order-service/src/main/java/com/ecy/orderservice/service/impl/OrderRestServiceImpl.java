@@ -1,8 +1,6 @@
 package com.ecy.orderservice.service.impl;
 
-import com.ecy.data.enums.InventoryStatus;
 import com.ecy.data.enums.OrderStatus;
-import com.ecy.data.enums.PaymentStatus;
 import com.ecy.orderservice.dto.OrderRequestDTO;
 import com.ecy.orderservice.dto.OrderResponseDTO;
 import com.ecy.orderservice.manager.OrderEventManager;

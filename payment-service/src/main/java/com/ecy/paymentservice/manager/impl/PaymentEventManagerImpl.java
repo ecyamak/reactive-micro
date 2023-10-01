@@ -2,8 +2,6 @@ package com.ecy.paymentservice.manager.impl;
 
 import com.ecy.data.dto.PaymentDTO;
 import com.ecy.data.enums.PaymentStatus;
-import com.ecy.data.event.EventFactory;
-import com.ecy.data.event.EventType;
 import com.ecy.data.event.OrderEvent;
 import com.ecy.data.event.PaymentEvent;
 import com.ecy.paymentservice.manager.PaymentEventManager;

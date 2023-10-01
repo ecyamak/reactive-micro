@@ -1,17 +1,13 @@
 package com.ecy.orderservice.configuration;
 
 import com.ecy.data.event.InventoryEvent;
-import com.ecy.data.event.OrderEvent;
 import com.ecy.data.event.PaymentEvent;
 import com.ecy.orderservice.manager.OrderEventManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Sinks;
 
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 /**
  * Author: ecyamak

@@ -9,7 +9,6 @@ import com.ecy.notification.NotificationFactory;
 import com.ecy.notification.NotificationType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -37,8 +36,8 @@ public class AccountVerificationServiceImpl implements AccountVerificationServic
                 .createDate(LocalDateTime.now())
                 .expireDate(LocalDateTime.now().plusMinutes(15))
                 .build())
-                .doOnNext(accountVerification -> kafkaService.sendNotification(
-                        NotificationFactory.get(NotificationType.MAIL,
+                .doOnNext(accountVerification ->
+                        kafkaService.sendNotification(NotificationFactory.get(NotificationType.MAIL,
                                 accountVerification.getEmail(),
                                 "Verification Code",
                                 "http://localhost:8079/verify?verificationCode=" + accountVerification.getVerificationCode()))
@@ -46,7 +45,6 @@ public class AccountVerificationServiceImpl implements AccountVerificationServic
     }
 
     @Override
-    @Transactional
     public Mono<AccountVerification> create(AccountVerification accountVerification) {
         return accountVerificationRepository.save(accountVerification);
     }
@@ -61,7 +59,7 @@ public class AccountVerificationServiceImpl implements AccountVerificationServic
         return accountVerificationRepository.findByVerificationCode(verificationCode)
                 .filter(accountVerification -> accountVerification.getExpireDate().isAfter(LocalDateTime.now()))
                 .doOnNext(accountVerification -> accountVerification.setConfirmDate(LocalDateTime.now()))
-                .delayUntil(accountVerification -> create(accountVerification))
+                .delayUntil(this::create)
                 .thenReturn(true);
     }
 

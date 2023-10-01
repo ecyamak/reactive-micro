@@ -7,9 +7,9 @@
         <groupId>com.ecy</groupId>
         <artifactId>reactive-micro</artifactId>
         <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>com.ecy</groupId>
     <artifactId>inventory-service</artifactId>
     <version>1.0.0</version>
     <name>inventory-service</name>

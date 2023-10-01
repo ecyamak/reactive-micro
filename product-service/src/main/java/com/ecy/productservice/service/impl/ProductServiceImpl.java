@@ -26,7 +26,7 @@ public class ProductServiceImpl extends AbstractBaseService implements ProductSe
     private final ProductRepository productRepository;
     private final ModelMapper modelMapper;
 
-    private ProductServiceImpl(ReactiveMongoTemplate reactiveMongoTemplate,
+    public ProductServiceImpl(ReactiveMongoTemplate reactiveMongoTemplate,
                                ProductRepository productRepository,
                                ModelMapper modelMapper) {
         super(reactiveMongoTemplate);
@@ -36,14 +36,6 @@ public class ProductServiceImpl extends AbstractBaseService implements ProductSe
 
     @Override
     public Mono<Void> create(ProductRequest productRequest) {
-        /*
-        var product = Product.builder()
-                .name(productRequest.getName())
-                .description(productRequest.getDescription())
-                .price(productRequest.getPrice())
-                .build();
-
-         */
         var product = modelMapper.map(productRequest, Product.class);
         return Mono.when(productRepository.save(product));
     }

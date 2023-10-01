@@ -2,8 +2,6 @@ package com.ecy.inventoryservice.manager.impl;
 
 import com.ecy.data.dto.InventoryDTO;
 import com.ecy.data.enums.InventoryStatus;
-import com.ecy.data.event.EventFactory;
-import com.ecy.data.event.EventType;
 import com.ecy.data.event.InventoryEvent;
 import com.ecy.data.event.OrderEvent;
 import com.ecy.inventoryservice.manager.InventoryEventManager;
