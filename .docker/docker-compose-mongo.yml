@@ -1,39 +1,39 @@
-version: '3.7'
+version: "3.7"
 name: mongo
 services:
   auth-mongodb:
     container_name: auth-mongodb
     image: mongo:latest
     ports:
-      - 27000:27017
+      - "27000:27017"
     volumes:
       - mongodb-auth:/data/db
   product-mongodb:
     container_name: product-mongodb
     image: mongo:latest
     ports:
-      - 27001:27017
+      - "27001:27017"
     volumes:
       - mongodb-product:/data/db
   order-mongodb:
     container_name: order-mongodb
     image: mongo:latest
     ports:
-      - 27002:27017
+      - "27002:27017"
     volumes:
       - mongodb-order:/data/db
   payment-mongodb:
     container_name: payment-mongodb
     image: mongo:latest
     ports:
-      - 27003:27017
+      - "27003:27017"
     volumes:
       - mongodb-payment:/data/db
   inventory-mongodb:
     container_name: inventory-mongodb
     image: mongo:latest
     ports:
-      - 27004:27017
+      - "27004:27017"
     volumes:
       - mongodb-inventory:/data/db
 volumes:

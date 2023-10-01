@@ -11,7 +11,7 @@ import lombok.Data;
 @Data
 public class InventoryRequestDTO {
 
-    public String productId;
-    public Integer stock;
+    private String productId;
+    private Integer stock;
 
 }

@@ -11,7 +11,7 @@ import lombok.Data;
 @Data
 public class InventoryResponseDTO {
 
-    public String productId;
-    public Integer stock;
+    private String productId;
+    private Integer stock;
 
 }

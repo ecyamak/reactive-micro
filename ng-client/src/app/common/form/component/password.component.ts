@@ -1,7 +1,7 @@
 import {Component, Input} from "@angular/core";
 import {PasswordModule} from "primeng/password";
 import {DividerModule} from "primeng/divider";
-import {AbstractControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
+import {FormGroup, ReactiveFormsModule} from "@angular/forms";
 
 @Component({
   standalone: true,

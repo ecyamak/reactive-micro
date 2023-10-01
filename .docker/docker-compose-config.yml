@@ -1,4 +1,4 @@
-version: '3.7'
+version: "3.7"
 name: reactive
 services:
   config-service:
@@ -8,7 +8,7 @@ services:
       dockerfile: Dockerfile
     image: config-service
     ports:
-      - 8888:8888
+      - "8888:8888"
     expose:
       - 8888
     networks:
@@ -26,7 +26,7 @@ services:
       dockerfile: Dockerfile
     image: discovery-service
     ports:
-      - 8761:8761
+      - "8761:8761"
     expose:
       - 8761
     networks:
@@ -47,7 +47,7 @@ services:
       dockerfile: Dockerfile
     image: gateway-service
     ports:
-      - 8080:8080
+      - "8080:8080"
     expose:
       - 8080
     networks:

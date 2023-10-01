@@ -10,6 +10,7 @@ import java.util.UUID;
  * Date: 24.08.2023
  * Time: 20:38
  */
+
 @Getter
 public abstract class BaseEvent implements Event {
 
