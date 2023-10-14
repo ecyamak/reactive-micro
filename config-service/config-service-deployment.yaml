@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: config-service-deployment
+  labels:
+    app: config-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: config-service
+  template:
+    metadata:
+      labels:
+        app: config-service
+    spec:
+      containers:
+        - name: config-service
+          image: reactive/config-service:1.0.0
+          imagePullPolicy: Never
+          envFrom:
+            - secretRef:
+                name: config-secret
+            - secretRef:
+                name: git-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: config-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: config-service
+  ports:
+    - port: 8888
+      targetPort: 8888

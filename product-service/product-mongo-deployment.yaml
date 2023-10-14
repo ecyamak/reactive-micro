@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-mongodb-deployment
+spec:
+  selector:
+    matchLabels:
+      app: product-mongodb
+  template:
+    metadata:
+      labels:
+        app: product-mongodb
+    spec:
+      containers:
+        - name: product-mongodb
+          image: mongo:latest
+          volumeMounts:
+            - name: product-data
+              mountPath: /data/db
+      volumes:
+        - name: product-data
+          persistentVolumeClaim:
+            claimName: product-claim
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: product-mongodb
+spec:
+  selector:
+    app: product-mongodb
+  ports:
+    - port: 27001
+      targetPort: 27017
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: product-claim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 256Mi
+
