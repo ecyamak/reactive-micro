@@ -3,8 +3,8 @@ services:
   config-service:
     container_name: config-service
     build:
-      context: config-service
-      dockerfile: Dockerfile
+      context: ../config-service
+      dockerfile: ../config-service/Dockerfile
     image: config-service
     ports:
       - "8888:8888"
@@ -21,8 +21,8 @@ services:
   discovery-service:
     container_name: discovery-service
     build:
-      context: discovery-service
-      dockerfile: Dockerfile
+      context: ../discovery-service
+      dockerfile: ../discovery-service/Dockerfile
     image: discovery-service
     ports:
       - "8761:8761"
@@ -42,8 +42,8 @@ services:
   gateway-service:
     container_name: gateway-service
     build:
-      context: gateway-service
-      dockerfile: Dockerfile
+      context: ../gateway-service
+      dockerfile: ../gateway-service/Dockerfile
     image: gateway-service
     ports:
       - "8080:8080"
@@ -57,8 +57,8 @@ services:
   auth-service:
     container_name: auth-service
     build:
-      context: auth-service
-      dockerfile: Dockerfile
+      context: ../auth-service
+      dockerfile: ../auth-service/Dockerfile
     image: auth-service
     ports:
       - "8079:8079"
@@ -96,8 +96,8 @@ services:
   first-service:
     container_name: first-service
     build:
-      context: first-service
-      dockerfile: Dockerfile
+      context: ../first-service
+      dockerfile: ../first-service/Dockerfile
     image: first-service
     ports:
       - "8081:8081"

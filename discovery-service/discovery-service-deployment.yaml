@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: discovery-service-deployment
+  labels:
+    app: discovery-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: discovery-service
+  template:
+    metadata:
+      labels:
+        app: discovery-service
+    spec:
+      containers:
+        - name: discovery-service
+          image: reactive/discovery-service:1.0.0
+          imagePullPolicy: Never
+          envFrom:
+            - secretRef:
+                name: config-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: discovery-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: discovery-service
+  ports:
+    - port: 8761
+      targetPort: 8761
