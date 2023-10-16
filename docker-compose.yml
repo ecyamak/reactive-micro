@@ -1,0 +1,30 @@
+version: "3.7"
+name: reactive-micro
+services:
+  config-service:
+    container_name: config-service
+    build:
+      context: config-service
+      dockerfile: Dockerfile
+      args:
+        - BUILD_VERSION
+        - JAVA_VERSION
+    image: reactive/config-service:${BUILD_VERSION}
+  discovery-service:
+    container_name: discovery-service
+    build:
+      context: discovery-service
+      dockerfile: Dockerfile
+      args:
+        - BUILD_VERSION
+        - JAVA_VERSION
+    image: reactive/discovery-service:${BUILD_VERSION}
+  product-service:
+    container_name: product-service
+    build:
+      context: product-service
+      dockerfile: Dockerfile
+      args:
+        - BUILD_VERSION
+        - JAVA_VERSION
+    image: reactive/product-service:${BUILD_VERSION}

@@ -1,5 +1,7 @@
-FROM openjdk:17
+ARG JAVA_VERSION
+FROM openjdk:${JAVA_VERSION}
 WORKDIR /app
-COPY /target/discovery-service-1.0.0.jar /app/discovery-service.jar
+ARG BUILD_VERSION
+COPY /target/discovery-service-${BUILD_VERSION}.jar /app/discovery-service-${BUILD_VERSION}.jar
 EXPOSE 8761
-ENTRYPOINT ["java", "-jar", "/app/discovery-service.jar"]
+ENTRYPOINT ["java", "-jar", "/app/discovery-service-${BUILD_VERSION}.jar"]
