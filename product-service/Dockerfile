@@ -1,5 +1,7 @@
-FROM openjdk:17
+ARG JAVA_VERSION
+FROM openjdk:${JAVA_VERSION}
 WORKDIR /app
-COPY /target/product-service-1.0.0.jar /app/product-service.jar
+ARG BUILD_VERSION
+COPY /target/product-service-${BUILD_VERSION}.jar /app/product-service-${BUILD_VERSION}.jar
 EXPOSE 8091
-ENTRYPOINT ["java", "-jar", "/app/product-service.jar"]
+ENTRYPOINT ["java", "-jar", "/app/product-service-${BUILD_VERSION}.jar"]

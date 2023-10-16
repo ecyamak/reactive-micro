@@ -1,5 +1,7 @@
-FROM openjdk:17
+ARG JAVA_VERSION
+FROM openjdk:${JAVA_VERSION}
 WORKDIR /app
-COPY /target/config-service-1.0.0.jar /app/config-service.jar
+ARG BUILD_VERSION
+COPY /target/config-service-${BUILD_VERSION}.jar /app/config-service-${BUILD_VERSION}.jar
 EXPOSE 8888
-ENTRYPOINT ["java", "-jar", "/app/config-service.jar"]
+ENTRYPOINT ["java", "-jar", "/app/config-service-${BUILD_VERSION}.jar"]
