@@ -27,8 +27,8 @@ public class ProductServiceImpl extends AbstractBaseService implements ProductSe
     private final ModelMapper modelMapper;
 
     public ProductServiceImpl(ReactiveMongoTemplate reactiveMongoTemplate,
-                               ProductRepository productRepository,
-                               ModelMapper modelMapper) {
+                              ProductRepository productRepository,
+                              ModelMapper modelMapper) {
         super(reactiveMongoTemplate);
         this.productRepository = productRepository;
         this.modelMapper = modelMapper;
