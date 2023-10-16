@@ -56,11 +56,6 @@ public class ProductRestController {
         return productService.deleteAll();
     }
 
-    @GetMapping("/info")
-    public Mono<String> productInfo() {
-        return Mono.just("This is product service.");
-    }
-
     @CircuitBreaker(name = "ProductServiceCircuitBreaker")
     @GetMapping("/order")
     public Mono<String> order() {
