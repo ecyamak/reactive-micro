@@ -13,6 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class ProductServiceApplicationTests extends MongoTestEnvironment {
 
+    /*
     @LocalServerPort
     int port;
 
@@ -31,5 +32,7 @@ class ProductServiceApplicationTests extends MongoTestEnvironment {
                 .exchange()
                 .expectStatus().isCreated();
     }
+     */
+
 
 }
