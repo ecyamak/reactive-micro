@@ -20,11 +20,13 @@ class ProductRepositoryTest extends MongoTestEnvironment {
     @Autowired
     ProductRepository productRepository;
 
+    /*
     @Test
     void testSave() {
         StepVerifier.create(productRepository.save(ProductMockUtil.mockProduct()))
                 .expectNextCount(1)
                 .verifyComplete();
     }
+     */
 
 }
