@@ -1,11 +1,14 @@
 package com.ecy.authservice.controller;
 
 import com.ecy.authservice.dto.AccountDTO;
-import com.ecy.authservice.entity.Account;
+import com.ecy.authservice.dto.ResultResponse;
 import com.ecy.authservice.entity.AccountVerification;
 import com.ecy.authservice.service.AuthService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -37,8 +40,8 @@ public class AuthRestController {
     }
 
     @GetMapping("/accounts")
-    public Flux<Account> getAccounts() {
-        return authService.getAccounts();
+    public Mono<ResultResponse> getAccounts(ServerHttpRequest request, @PageableDefault Pageable pageable) {
+        return authService.getAccounts(request, pageable);
     }
 
     @DeleteMapping("/accounts")

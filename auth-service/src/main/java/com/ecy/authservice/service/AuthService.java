@@ -1,6 +1,9 @@
 package com.ecy.authservice.service;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import com.ecy.authservice.dto.AccountDTO;
+import com.ecy.authservice.dto.ResultResponse;
 import com.ecy.authservice.entity.Account;
 import com.ecy.authservice.entity.AccountVerification;
 import reactor.core.publisher.Flux;
@@ -23,6 +26,8 @@ public interface AuthService {
     Mono<Account> getAccount(Account account);
 
     Flux<Account> getAccounts();
+
+    Mono<ResultResponse> getAccounts(ServerHttpRequest request, Pageable pageable);
 
     Mono<Account> updateAccount(Account account);
 
