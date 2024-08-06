@@ -1,5 +1,7 @@
 package com.ecy.authservice.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import com.ecy.authservice.entity.Account;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -16,6 +18,8 @@ public interface AccountService {
     Mono<Account> find(Account account);
 
     Flux<Account> findAll();
+
+    Mono<Page<Account>> findAll(Pageable pageable);
 
     Mono<Account> update(Account account);
 

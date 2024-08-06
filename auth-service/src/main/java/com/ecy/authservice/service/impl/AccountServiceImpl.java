@@ -6,6 +6,9 @@ import com.ecy.authservice.exception.AuthenticationException;
 import com.ecy.authservice.repository.AccountRepository;
 import com.ecy.authservice.service.AccountService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,6 +45,14 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Flux<Account> findAll() {
         return accountRepository.findAll();
+    }
+
+    @Override
+    public Mono<Page<Account>> findAll(Pageable pageable) {
+        return accountRepository.findAllBy(pageable)
+                .collectList()
+                .zipWith(accountRepository.count())
+                .map(tuple -> new PageImpl<>(tuple.getT1(), pageable, tuple.getT2()));
     }
 
     @Override
