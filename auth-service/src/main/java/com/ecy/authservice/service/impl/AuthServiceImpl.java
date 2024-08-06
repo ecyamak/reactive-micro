@@ -1,6 +1,7 @@
 package com.ecy.authservice.service.impl;
 
 import com.ecy.authservice.dto.AccountDTO;
+import com.ecy.authservice.dto.ResultResponse;
 import com.ecy.authservice.entity.Account;
 import com.ecy.authservice.entity.AccountVerification;
 import com.ecy.authservice.service.AccountService;
@@ -8,6 +9,9 @@ import com.ecy.authservice.service.AccountVerificationService;
 import com.ecy.authservice.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -51,6 +55,12 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public Flux<Account> getAccounts() {
         return accountService.findAll();
+    }
+
+    @Override
+    public Mono<ResultResponse> getAccounts(ServerHttpRequest request, Pageable pageable) {
+        return accountService.findAll(pageable)
+                .map(result -> new ResultResponse(request, HttpStatus.OK, result));
     }
 
     @Override
