@@ -1,7 +1,9 @@
 package com.ecy.authservice.repository;
 
 import com.ecy.authservice.entity.Account;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
@@ -15,5 +17,7 @@ public interface AccountRepository extends ReactiveMongoRepository<Account, Stri
     Mono<Account> findByEmail(String email);
 
     Mono<Account> findByUsername(String username);
+
+    Flux<Account> findAllBy(Pageable pageable);
 
 }
